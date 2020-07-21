@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://eqrepair.gzclearing.com/phoneState/import -->
+<html style="overflow: auto;" class=" js csstransforms3d csstransitions csstransformspreserve3d" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>失联修复</title>
+
+		<meta name="author" content="广清中心信息技术部">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=9,IE=10">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-store">
+		<!-- 移动端禁止缩放事件 -->
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+		<!-- 设置浏览器图标 -->
+		<link rel="shortcut icon" href="" th:href="@{'https://eqrepair.gzclearing.com/static/assets/img/favicon.ico?v=1.0.0.5'}">
+
+		<!-- 引入jeeplus ajax版本库文件，该文件压缩了jQuery，datatime等常用js文件以提高加载速度 -->
+		<link rel="stylesheet" href="" th:href="@{/css/vendor.css}">
+		<script src="" th:src="@{/js/ckeditor.js}" type="text/javascript"></script>
+		<style>
+			.cke {
+				visibility: hidden;
+			}
+		</style>
+		<script src="" th:src="@{/js/vendor.js}"></script>
+		<!-- 该插件已经集成jquery 无需重复引入 -->
+		<script src="" th:src="@{/js/moment-locales.js}"></script>
+		<!-- 语言环境插件 -->
+		<link href="" th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+
+		<!-- 引入依赖的第三方插件 -->
+		<script src="" th:src="@{/js/jquery.serializejson.min.js}" type="text/javascript"></script>
+		<script src="" th:src="@{/js/jquery.form.js}" type="text/javascript"></script>
+		<script src="" th:src="@{/js/jquery.contextMenu.min.js}" type="text/javascript"></script>
+		<script src="" th:src="@{/js/jquery.ui.position.min.js}" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="" th:href="@{/css/jquery.contextMenu.min.css}">
+		<script src="" th:src="@{/js/jquery.validate.js}" type="text/javascript"></script>
+		<script src="" th:src="@{/js/messages_zh.min.js}" type="text/javascript"></script>
+		<script src="" th:src="@{/js/validation-methods.js}" type="text/javascript"></script>
+		<link href="" th:href="@{/css/_all.css}" rel="stylesheet">
+		<script src="" th:src="@{/js/icheck.js}"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('input.i-checks').iCheck({
+					checkboxClass: 'icheckbox_square-blue',
+					radioClass: 'iradio_square-blue',
+					increaseArea: '20%' // optional
+				});
+			});
+		</script>
+
+		<link href="" th:href="@{/css/city-picker.css}" rel="stylesheet" type="text/css">
+		<script src="" th:src="@{/js/city-picker.data.js}" type="text/javascript"></script>
+		<script src="" th:src="@{/js/city-picker.js}" type="text/javascript"></script>
+
+		<!-- 引入layer插件,当做独立组件使用，不使用layui模块，该版本修复了chrome下花屏的bug -->
+		<script src="" th:src="@{/js/layer.js}"></script>
+		<link rel="stylesheet" href="" th:href="@{/css/layer.css}" id="layuicss-layer">
+		<script src="" th:src="@{/js/laytpl.js}"></script>
+
+		<link rel="stylesheet" href="" th:href="@{/css/layui.css}" media="all">
+		<script src="" th:src="@{/js/layui.js}"></script>
+
+		<!--引入另一个模板文件当做laytpl模板的备用-->
+		<script src="" th:src="@{/js/mustache.min.js}" type="text/javascript"></script>
+		<!--引入webuploader-->
+		<link rel="stylesheet" type="text/css" href="" th:href="@{/css/webuploader.css}">
+		<script type="text/javascript" src="" th:src="@{/js/webuploader.js}"></script>
+
+		<!-- 引入toastr -->
+		<link rel="stylesheet" type="text/css" href="" th:href="@{/css/toastr.css}">
+		<script type="text/javascript" src="" th:src="@{/js/toastr.min.js}"></script>
+
+		<!-- 引入自定义文件 -->
+		<script type="text/javascript">
+			var ctx = '',
+				ctxStatic = '/static';
+		</script>
+
+		<link rel="stylesheet" id="theme" href="" th:href="@{/css/app-blue.css}">
+		<script src="" th:src="@{/js/jeeplus.js}"></script>
+
+		<!--引入自定义css和js文件-->
+		<link rel="stylesheet" type="text/css" href="" th:href="@{/css/eqrms.css}">
+		<script src="" th:src="@{/js/common.js}"></script>
+
+		<meta name="decorator" content="ani">
+		<link href="" th:href="@{/css/fileUpload.css}" type="text/css" rel="stylesheet">
+		<link href="" th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+		<script src="" th:src="@{/js/jstree.min.js}" type="text/javascript"></script>
+		<linkj><script type="text/javascript" src="" th:src="@{/js/city-picker.data.js}" ></script></linkj>
+		<script>
+			var tmpBatchNo;
+			var totalCount = 0;
+			$(function() {
+				tmpBatchNo = guid();
+				layui.use('table', function() {
+					var table = layui.table;
+					table.render({
+						id: 'listTable',
+						elem: '#listTable',
+						toolbar: '#toolbar',
+						defaultToolbar: ["filter", "refresh"],
+						url: '/phoneState/import/data',
+						request: {
+							pageName: 'pageNo', //页码的参数名称，默认：page
+							limitName: 'pageSize' //每页数据量的参数名，默认：limit
+						},
+						where: {
+							'batchNo': tmpBatchNo
+						},
+						autoSort: false,
+						loading: true,
+						cellMinWidth: 0,
+						height: 500,
+						page: true, //开启分页
+						limit: 10, //默认十条数据一页
+						limits: [10, 20, 30, 50], //数据分页条
+						cols: [
+							[{
+									field: 'seq',
+									fixed: 'left',
+									title: '序号',
+									minWidth: 80,
+									unresize: true
+								},
+								{
+									field: 'requestIdNumber',
+									fixed: 'left',
+									title: '身份证',
+									minWidth: 240,
+									unresize: true
+								},
+								{
+									field: 'requestName',
+									title: '姓名',
+									minWidth: 150,
+									unresize: true
+								},
+								{
+									field: 'requestPhone',
+									title: '手机号码',
+									minWidth: 150,
+									unresize: true
+								},
+								{
+									field: 'createDate',
+									title: '创建时间',
+									minWidth: 160,
+									unresize: true,
+									templet: function(res) {
+										var value = res.createDate;
+										return jp.dateFormat(value, "yyyy-MM-dd hh:mm:ss");
+									}
+								}, , {
+									fixed: 'right',
+									title: '操作',
+									toolbar: '#barList',
+									width: 150
+								}
+							]
+						],
+						done: function(res, curr, count) {
+							totalCount = count;
+						}
+					});
+					//监听工具条
+					table.on('tool(delBar)', function(obj) {
+						var data = obj.data;
+						if(obj.event === 'del') {
+							layer.confirm('真的删除行么', function(index) {
+								$.ajax({
+									type: "post",
+									url: "/phoneState/import/delete",
+									async: true,
+									data: {
+										id: data.id
+									},
+									dataType: "json",
+									success: function(data) {
+										if(data.success == true) {
+											alert(data.msg);
+											initalImportDate(tmpBatchNo);
+										} else {
+											layer.msg(data.msg);
+										}
+									}
+								});
+								layer.close(index);
+							});
+						}
+					});
+				});
+
+				// $("#downloadTemplate").click(function(){
+				//     window.location.href="" th:href="@{'/static/importTemplate.xlsx'}";
+				// });
+			});
+
+			function add() {
+				layer.open({
+					type: 1,
+					offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+						,
+					id: 'layerDemo' + 'auto' //防止重复弹出
+						,
+					content: '  <div class="layui-form-item">\n' +
+						'    <div class="layui-inline" style="margin-top: 10px">\n' +
+						'      <label class="layui-form-label" style="width: 100px">身份证</label>\n' +
+						'      <div class="layui-input-inline">\n' +
+						'        <input type="tel" id="idCard" name="idCard" autocomplete="off" class="layui-input">\n' +
+						'      </div>\n' +
+						'    </div>\n' +
+						'    <div class="layui-inline">\n' +
+						'      <label class="layui-form-label" style="width: 100px">姓名</label>\n' +
+						'      <div class="layui-input-inline">\n' +
+						'        <input type="text" id="name" name="name" autocomplete="off" class="layui-input">\n' +
+						'      </div>\n' +
+						'    </div>\n' +
+						'    <div class="layui-inline">\n' +
+						'      <label class="layui-form-label" style="width: 100px">手机号码</label>\n' +
+						'      <div class="layui-input-inline">\n' +
+						'        <input type="text" id="phone" name="phone" autocomplete="off" class="layui-input">\n' +
+						'      </div>\n' +
+						'    </div>\n' +
+						'  </div>',
+					btn: ['增加', '取消'],
+					btnAlign: 'c' //按钮居中
+						,
+					shade: 0 //不显示遮罩
+						,
+					yes: function() {
+						$.ajax({
+							type: "post",
+							url: "/phoneState/import/add",
+							async: true,
+							data: {
+								idCard: $("#idCard").val(),
+								requestName: $("#name").val(),
+								requestPhone: $("#phone").val(),
+								tmpBatchNo: tmpBatchNo
+							},
+							dataType: "json",
+							success: function(data) {
+								if(data.success == true) {
+									alert(data.msg);
+									layer.closeAll();
+									initalImportDate(tmpBatchNo);
+								} else {
+									layer.msg(data.msg);
+								}
+							}
+						});
+					},
+					btn2: function() {
+						layer.closeAll();
+					}
+				});
+			}
+
+			function downloadTemplate() {
+				window.location.href = "/static/importTemplateForTrinity.xlsx";
+			};
+
+			function importInfo() {
+				var formData = new FormData();
+				formData.append("upfile", $("#upfile")[0].files[0]);
+
+				layer.open({
+					type: 1,
+					area: ['400px', '200px'],
+					shadeClose: false,
+					shade: 0.6,
+					// anim : 3,
+					skin: 'layui-layer-molv',
+					title: "导入数据",
+					content: jQuery("#importBox"),
+					btn: ['确定', '关闭'],
+					btn1: function(index, layero) {
+						var msg = layer.msg('正在导入...', {
+							icon: 16,
+							shade: [0.5, '#f5f5f5'],
+							scrollbar: false,
+							offset: '0px',
+							time: 0
+						});
+						var formData = new FormData();
+						formData.append("upfile", $("#upfile")[0].files[0]);
+						$.ajax({
+							url: '/phoneState/import/importRepair?tmpBatchNo=' + tmpBatchNo,
+							dataType: 'json',
+							type: 'POST',
+							data: formData,
+							cache: false,
+							processData: false, // 不处理数据
+							contentType: false,
+							success: function(result) {
+								layer.close(msg);
+								if(result.success == true) {
+									alert(result.msg);
+									initalImportDate(tmpBatchNo);
+								} else {
+									alert(result.msg);
+									initalImportDate(tmpBatchNo);
+								}
+
+							}
+						});
+						layer.close(index);
+					},
+					btn2: function(index) {
+						layer.close(index);
+					}
+				});
+			}
+			//调用失联修复接口
+			function send() {
+				layer.confirm('确认发送？', function(index) {
+					if(totalCount <= 0) {
+						layer.msg('请先新增或导入数据');
+					} else {
+						var msg = layer.msg('正在发送...', {
+							icon: 16,
+							shade: [0.5, '#f5f5f5'],
+							scrollbar: false,
+							offset: '0px',
+							time: 0
+						});
+						$.ajax({
+							url: '/phoneState/import/send?tmpBatchNo=' + tmpBatchNo,
+							dataType: 'json',
+							type: 'POST',
+							cache: false,
+							processData: false, // 不处理数据
+							contentType: false,
+							success: function(result) {
+								layer.close(msg);
+								if(result.success == true) {
+									alert(result.msg);
+									var url = "/phoneState/query?batchNo=" + result.body.batchNo;
+									jp.openTab(url, "查询手机在网状态结果", false);
+								} else {
+									var alertStr = "批次号为：" + result.body.batchNo + "，请先核查有无结果数据，如只有部分结果数据请稍后点击结果页面刷新按钮，如没有结果数据请尝试重试发送，如重试发送后仍无结果数据请联系管理员！";
+									layer.alert('<span style=\'color: red;font-size: 30px;letter-spacing: 3px;line-height: 40px;\'>' + alertStr + '</span>', {
+										area: ['600px', '400px']
+									}, function(index) {
+										var url = "/phoneState/query?batchNo=" + result.body.batchNo;
+										jp.openTab(url, "查询手机在网状态结果", false);
+										layer.close(index);
+									});
+								}
+								refreshTable();
+							}
+						});
+					}
+					layer.close(index);
+				});
+
+			}
+			//JS校验form表单信息
+			function checkData() {
+				var fileDir = $("#upfile").val();
+				var suffix = fileDir.substr(fileDir.lastIndexOf("."));
+				if("" == fileDir) {
+					layer.msg("选择需要导入的Excel文件！");
+					return false;
+				}
+				if(".xls" != suffix && ".xlsx" != suffix) {
+					layer.msg("选择Excel格式的文件导入！");
+					return false;
+				}
+				return true;
+			}
+
+			//把导入的数据展现
+			function initalImportDate(tmpBatchNo) {
+				var table = layui.table;
+				var searchForm = $("#searchForm").serializeJSON();
+				table.reload('listTable', {
+					url: '/phoneState/import/data?batchNo=' + tmpBatchNo,
+					page: {
+						curr: 1 //重新从第 1 页开始
+					}
+				});
+			}
+
+			//发送成功后刷新表格数据
+			function refreshTable() {
+				tmpBatchNo = guid();
+				var table = layui.table;
+				var searchForm = $("#searchForm").serializeJSON();
+				table.reload('listTable', {
+					url: '/phoneState/import/data?batchNo=' + tmpBatchNo,
+					page: {
+						curr: 1 //重新从第 1 页开始
+					}
+				});
+			}
+
+			function S4() {
+				return(((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+			}
+
+			function guid() {
+				return(S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+			}
+		</script>
+
+	</head>
+
+	<body id="" class="bg-white" style="">
+
+		<div class="wrapper wrapper-content">
+			<div class="panel panel-primary">
+
+				<script type="text/html" id="toolbar">
+					<div id="layerBtn1">
+						<button class="layui-btn" id="download1" onclick="downloadTemplate()">下载导入模板</button>
+						<button class="layui-btn" onclick="add()">新增</button>
+						<button onclick="importInfo()" class="layui-btn" data-toggle="tooltip" data-placement="left"><i class="fa fa-folder-open-o"></i> 批量导入</button>
+						<button class="layui-btn layui-btn-danger" onclick="send()">发送</button>
+
+					</div>
+				</script>
+				<!-- 表格 -->
+				<div id="importBox" v-show="!showListBtn" style="display: none">
+					<form id="importForm" method="post" enctype="multipart/form-data" style="padding-left:20px;text-align:center;"></form><br>
+					<input id="upfile" name="upfile" type="file" style="width:330px">仅允许导入“xls”或“xlsx”格式文件！<br>
+
+				</div>
+				<table id="listTable" data-toolbar="#toolbar" style="table-layout:fixed;min-width: 2200px" lay-filter="delBar">
+
+					<script type="text/html" id="barList">
+						<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+					</script>
+
+				</table>
+				<div class="layui-form layui-border-box layui-table-view" lay-filter="LAY-table-1" lay-id="listTable" style=" height:500px;">
+					<div class="layui-table-tool">
+						<div class="layui-table-tool-temp">
+							<div id="layerBtn"> <button class="layui-btn" id="download" onclick="downloadTemplate()">下载导入模板</button> <button class="layui-btn" onclick="add()">新增</button> <button onclick="importInfo()" class="layui-btn" data-toggle="tooltip" data-placement="left"><i class="fa fa-folder-open-o"></i> 批量导入</button> <button class="layui-btn layui-btn-danger" onclick="send()">发送</button> </div>
+						</div>
+						<div class="layui-table-tool-self">
+							<div class="layui-inline" title="筛选列" lay-event="LAYTABLE_COLS"><i class="layui-icon layui-icon-cols"></i></div>
+						</div>
+					</div>
+					<div class="layui-table-box">
+						<div class="layui-table-header">
+							<table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+								<thead>
+									<tr>
+										<th data-field="seq" data-key="1-0-0" data-minwidth="80" data-unresize="true" class="">
+											<div class="layui-table-cell laytable-cell-1-0-0"><span>序号</span></div>
+										</th>
+										<th data-field="requestIdNumber" data-key="1-0-1" data-minwidth="240" data-unresize="true" class="">
+											<div class="layui-table-cell laytable-cell-1-0-1"><span>身份证</span></div>
+										</th>
+										<th data-field="requestName" data-key="1-0-2" data-minwidth="150" data-unresize="true" class="">
+											<div class="layui-table-cell laytable-cell-1-0-2"><span>姓名</span></div>
+										</th>
+										<th data-field="requestPhone" data-key="1-0-3" data-minwidth="150" data-unresize="true" class="">
+											<div class="layui-table-cell laytable-cell-1-0-3"><span>手机号码</span></div>
+										</th>
+										<th data-field="createDate" data-key="1-0-4" data-minwidth="160" data-unresize="true" class="">
+											<div class="layui-table-cell laytable-cell-1-0-4"><span>创建时间</span></div>
+										</th>
+										<th data-field="5" data-key="1-0-5" class=" layui-table-col-special">
+											<div class="layui-table-cell laytable-cell-1-0-5 laytable-cell-undefined"><span>操作</span></div>
+										</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+						<div class="layui-table-body layui-table-main" style="height: 359px;">
+							<table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+								<tbody></tbody>
+							</table>
+							<div class="layui-none">无数据</div>
+						</div>
+					</div>
+					<div class="layui-table-page layui-hide">
+						<div id="layui-table-page1"></div>
+					</div>
+					<style>
+						.laytable-cell-1-0-0 {}
+						
+						.laytable-cell-1-0-1 {}
+						
+						.laytable-cell-1-0-2 {}
+						
+						.laytable-cell-1-0-3 {}
+						
+						.laytable-cell-1-0-4 {}
+						
+						.laytable-cell-1-0-5 {
+							width: 150px;
+						}
+					</style>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

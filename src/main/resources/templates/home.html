@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)https://eqrepair.gzclearing.com/home -->
+<html style="overflow: auto;" class=" js csstransforms3d csstransitions csstransformspreserve3d" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>首页</title>
+
+		<meta name="author" content="再芮信息技术部">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=9,IE=10">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-store">
+		<!-- 移动端禁止缩放事件 -->
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+		<!-- 设置浏览器图标 -->
+		<link rel="shortcut icon" href="" th:href="@{'https://eqrepair.gzclearing.com/static/assets/img/favicon.ico?v=1.0.0.5'}">
+
+		<!-- 引入jeeplus ajax版本库文件，该文件压缩了jQuery，datatime等常用js文件以提高加载速度 -->
+		<link rel="stylesheet" href="" th:href="@{/css/vendor.css}">
+		<script src="" th:src="@{/js/ckeditor.js}" type="text/javascript"></script>
+		<style>
+			.cke {
+				visibility: hidden;
+			}
+		</style>
+		<script src="" th:src="@{/js/vendor.js}"></script>
+		<!-- 该插件已经集成jquery 无需重复引入 -->
+		<script src="" th:src="@{/js/moment-locales.js}"></script>
+		<!-- 语言环境插件 -->
+		<link href="" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet">
+
+		<!-- 引入依赖的第三方插件 -->
+		<script src="" th:src="@{/js/jquery.serializejson.min.js}" type="text/javascript"></script>
+		<script src="" th:src="@{/js/jquery.form.js}" type="text/javascript"></script>
+		<script src="" th:src="@{/js/jquery.contextMenu.min.js}" type="text/javascript"></script>
+		<script src="" th:src="@{/js/jquery.ui.position.min.js}" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="" th:href="@{/css/jquery.contextMenu.min.css}">
+		<script src="" th:src="@{/js/jquery.validate.js}" type="text/javascript"></script>
+		<script src="" th:src="@{/js/messages_zh.min.js}" type="text/javascript"></script>
+		<script src="" th:src="@{/js/validation-methods.js}" type="text/javascript"></script>
+		<link href="" th:href="@{/css/_all.css}" rel="stylesheet">
+		<script src="" th:src="@{/js/icheck.js}"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('input.i-checks').iCheck({
+					checkboxClass: 'icheckbox_square-blue',
+					radioClass: 'iradio_square-blue',
+					increaseArea: '20%' // optional
+				});
+			});
+		</script>
+
+		<link href="" th:href="@{/css/city-picker.css}" rel="stylesheet" type="text/css">
+		<script src="" th:src="@{/js/city-picker.data.js}" type="text/javascript"></script>
+		<script src="" th:src="@{/js/city-picker.js}" type="text/javascript"></script>
+
+		<!-- 引入layer插件,当做独立组件使用，不使用layui模块，该版本修复了chrome下花屏的bug -->
+		<script src="" th:src="@{/js/layer.js}"></script>
+		<link rel="stylesheet" href="" th:href="@{/css/layer.css}" id="layuicss-layer">
+		<script src="" th:src="@{/js/laytpl.js}"></script>
+
+		<link rel="stylesheet" href="" th:href="@{/css/layui.css}" media="all">
+		<script src="" th:src="@{/js/layui.js}"></script>
+
+		<!--引入另一个模板文件当做laytpl模板的备用-->
+		<script src="" th:src="@{/js/mustache.min.js}" type="text/javascript"></script>
+		<!--引入webuploader-->
+		<link rel="stylesheet" type="text/css" href="" th:href="@{/css/webuploader.css}">
+		<script type="text/javascript" src="" th:src="@{/js/webuploader.js}"></script>
+
+		<!-- 引入toastr -->
+		<link rel="stylesheet" type="text/css" href="" th:href="@{/css/toastr.css}">
+		<script type="text/javascript" src="" th:src="@{/js/toastr.min.js}"></script>
+
+		<!-- 引入自定义文件 -->
+		<script type="text/javascript">
+			var ctx = '',
+				ctxStatic = '/static';
+		</script>
+
+		<link rel="stylesheet" id="theme" href="" th:href="@{/css/app-blue.css}">
+		<script src="" th:src="@{/js/jeeplus.js}"></script>
+
+		<!--引入自定义css和js文件-->
+		<link rel="stylesheet" type="text/css" href="" th:href="@{/css/eqrms.css}">
+		<script src="" th:src="@{/js/common.js}"></script>
+
+		<meta name="decorator" content="ani">
+		<style>
+			#body-container {
+				margin-left: 0 !important;
+				/**padding: 10px;*/
+				margin-top: 0!important;
+				overflow-x: hidden!important;
+				transition: all 0.2s ease-in-out !important;
+				height: 100% !important;
+			}
+		</style>
+
+	</head>
+
+	<body id="" class="" style="">
+
+		<div id="body-container" class="wrapper wrapper-content">
+			<div class="conter-wrapper home-container">
+				<div class="row home-row">
+					<div style="margin-left: 35px;font-size: 20px;">
+						欢迎登录再芮修复管理平台
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+</html>

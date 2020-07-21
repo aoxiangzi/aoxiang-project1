@@ -1,0 +1,14 @@
+use zairui;
+
+drop table if exists insurances;
+
+create table insurances(
+  batch varchar(20),
+  id char(18) primary key,
+  name varchar(20),
+  phone char(11) unique
+);
+
+insert into insurances value('中科数据20191024-1','110562192004071008','卢俊义','13676277300');
+
+select * from insurances;

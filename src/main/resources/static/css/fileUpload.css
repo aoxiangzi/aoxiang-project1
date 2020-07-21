@@ -1,0 +1,27 @@
+.filesDiv {
+	position: relative;
+	margin-left: 10px;
+	min-height: 50px;
+}
+
+.filesDiv .uploadFileBtnDiv {
+	float: right;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.filesDiv .uploadFileBtn {
+	/*border-color: #1a7bb9;;*/
+	/*color: #fff;*/
+	/*background-color: #1a7bb9;*/
+	border-radius: 3px;
+}
+
+.filesDiv .filesPreview {
+	margin-top: 5px;
+}
+
+.filesDiv .filesPreview li {
+	margin-left: -25px;
+}
