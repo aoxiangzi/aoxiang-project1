@@ -36,6 +36,4 @@ public class PageController{
         mav.setViewName(page);
         return mav;
     }
-
-
 }
