@@ -3,12 +3,14 @@ use zairui;
 drop table if exists insurances;
 
 create table insurances(
-  batch varchar(20),
   id char(18) primary key,
+  batch varchar(30),
   name varchar(20),
   phone char(11) unique
-);
+) charset = "utf8";
 
-insert into insurances value('中科数据20191024-1','110562192004071008','卢俊义','13676277300');
+insert into insurances value('110562192004071708','中科数据20191024-1','卢俊义','13636277300');
 
-select * from insurances;
+select count(*) from insurances;
+
+select * from insurances limit 0,10;

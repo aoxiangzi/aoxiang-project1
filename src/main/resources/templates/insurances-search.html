@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.1</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8"/>
+    <link rel="shortcut icon" href="" th:href="@{/images/favicon.ico}"/>
+    <link rel="stylesheet" href="" th:href="@{/layui/css/font.css}">
+    <link rel="stylesheet" href="" th:href="@{/css/xadmin.css}">
+    <link rel="stylesheet" href="" th:href="@{/layui/css/layui.css}" media="all">
+    <script type="text/javascript" src="" th:src="@{'https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js'}"></script>
+    <script type="text/javascript" src="" th:src="@{/js/xadmin.js}"></script>
+    <script type="text/javascript" src="" th:src="@{/js/cookie.js}"></script>
+</head>
+
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" action="" method="post">
+            <input class="layui-input" autocomplete="off" placeholder="开始日期" name="start" id="start">
+            <input class="layui-input" autocomplete="off" placeholder="截止日期" name="end" id="end">
+            <input type="text" name="batch" placeholder="请输入批次号" autocomplete="off" class="layui-input" id="batch">
+            <input type="text" name="idCard" placeholder="请输入身份证" autocomplete="off" class="layui-input" id="idCard">
+            <input type="text" name="name" placeholder="请输入姓名" autocomplete="off" class="layui-input" id="name">
+            <input type="text" name="phone" placeholder="请输入手机号" autocomplete="off" class="layui-input" id="phone">
+            <input type="submit" onclick="return insuranceForm()" class="layui-btn"/>
+        </form>
+    </div>
+    <table id="insurancesTable" lay-filter="test"></table>
+</div>
+<script src="" th:src="@{/layui/layui.js}"></script>
+<script type="text/html" id="toolbarDemo">
+    <input type="file"/>
+</script>
+<script>
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+
+//执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+            ,type: 'datetime'
+        });
+
+//执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+            ,type: 'datetime'
+        });
+    });
+</script>
+<!--分页查询-->
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#insurancesTable'
+            ,url: '/insurances/getInsurancesTable' //数据接口*/
+            ,cols: [
+                [ //表头
+                {field: 'index', title: '序号', width:80, sort: true, fixed: 'left'}
+                ,{field: 'batch', title: '批次号', width:160}
+                ,{field: 'id', title: '身份证', width:160}
+                ,{field: 'name', title: '姓名', width:80}
+                ,{field: 'phone', title: '手机号', width: 150}
+                ,{field: 'status', title: '状态', width: 150}
+                ,{field: 'hit', title: '命中情况', width: 150}
+                ,{field: 'time', title: '查询时间', width: 150}
+                ,{field: 'operate', title: '操作', width: 100}
+            ]
+            ]
+            ,page: true //开启分页
+            ,limits: [10,20,30,50,100]
+            ,limit: 10 //每页默认显示的数量
+            //点击页数按钮出发的函数
+            ,jump: function(obj,first){
+                if (!first) {
+                    var pageNum=obj.curr;
+                    var pageSize=obj.limit;
+                    window.location.href="/insurances/getInsurancesTable?page="+pageNum+"&limit="+pageSize;//跳转链接
+                }
+                console.log(obj)
+            }
+        });
+    });
+</script>
+</body>
+</html>

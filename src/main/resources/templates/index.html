@@ -1,521 +1,220 @@
-<!DOCTYPE html>
-<html lang="en" style="overflow: auto;" class="js csstransforms3d csstransitions csstransformspreserve3d" xmlns:th="http://www.thymeleaf.org">
-
+<!doctype html>
+<html class="x-admin-sm" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>再芮修复管理平台</title>
-
-	<meta name="author" content="再芮信息技术部">
-	<meta name="renderer" content="webkit">
-	<meta http-equiv="X-UA-Compatible" content="IE=9,IE=10">
-	<meta http-equiv="content-type" content="no-cache">
-	<meta http-equiv="content-type" content="no-store">
-	<!-- 移动端禁止缩放事件 -->
-	<!--<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">-->
-
-	<!-- 设置浏览器图标 -->
-	<link rel="shortcut icon" href="" th:href="@{'https://eqrepair.gzclearing.com/static/assets/img/favicon.ico?v=1.0.0.5'}">
-
-	<!-- 引入jeeplus ajax版本库文件，该文件压缩了jQuery，datatime等常用js文件以提高加载速度 -->
-	<link rel="stylesheet" type="text/css" href="" th:href="@{/css/vendor.css}"/>
-	<script src="" th:src="@{js/ckeditor.js}" type="text/javascript"></script>
-	<style>
-		.cke {
-			visibility: hidden;
-		}
-	</style>
-	<script src="" th:src="@{js/vendor.js}" type="text/javascript"></script>
-	<!-- 该插件已经集成jquery 无需重复引入 -->
-	<script src="" th:src="@{js/moment-locales.js}"></script>
-	<!-- 语言环境插件 -->
-	<link rel="stylesheet" type="text/css" href="" th:href="@{font-awesome-4.7.0/css/font-awesome.css}"/>
-
-	<!-- 引入依赖的第三方插件 -->
-	<script src="" th:src="@{/js/jquery.serializejson.min.js}" type="text/javascript"></script>
-	<script src="" th:src="@{/js/jquery.form.js}" type="text/javascript"></script>
-	<script src="" th:src="@{/js/jquery.contextMenu.min.js}" type="text/javascript"></script>
-	<script src="" th:src="@{/js/jquery.ui.position.min.js}" type="text/javascript"></script>
-	<link rel="stylesheet" type="text/css" href="" th:href="@{/css/jquery.contextMenu.min.css}">
-	<script src="" th:src="@{/js/jquery.validate.js}" type="text/javascript"></script>
-	<script src="" th:src="@{/js/messages_zh.min.js}" type="text/javascript"></script>
-	<script src="" th:src="@{/js/validation-methods.js}" type="text/javascript"></script>
-	<link href="" th:href="@{/css/_all.css}" rel="stylesheet">
-	<script src="" th:src="@{/js/icheck.js}"></script>
-	<script type="text/javascript">
-        $(document).ready(function() {
-            $('input.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' // optional
-            });
-        });
-	</script>
-
-	<link rel="stylesheet" type="text/css" href="" th:href="@{/css/city-picker.css}">
-	<script src="" th:src="@{/js/city-picker.data.js}" type="text/javascript"></script>
-	<script src="" th:src="@{/js/city-picker.js}" type="text/javascript"></script>
-
-	<!-- 引入layer插件,当做独立组件使用，不使用layui模块，该版本修复了chrome下花屏的bug -->
-	<script src="" th:src="@{/layer-v3.1.1/layer/layer.js}"></script>
-	<link rel="stylesheet" href="" th:href="@{/layer-v3.1.1/layer/mobile/need/layer.css}" id="layuicss-layer">
-	<script src="" th:src="@{/js/laytpl.js}"></script>
-
-	<link rel="stylesheet" href="" th:href="@{/css/layui.css}" media="all">
-	<script src="" th:src="@{/js/layui.js}"></script>
-
-	<!--引入另一个模板文件当做laytpl模板的备用-->
-	<script src="" th:src="@{/js/mustache.min.js}" type="text/javascript"></script>
-	<!--引入webuploader-->
-	<link rel="stylesheet" type="text/css" href="" th:href="@{/css/webuploader.css}">
-	<script type="text/javascript" src="" th:src="@{/js/webuploader.js}"></script>
-
-	<!-- 引入toastr -->
-	<link rel="stylesheet" type="text/css" href="" th:href="@{/css/toastr.css}">
-	<script type="text/javascript" src="" th:src="@{/js/toastr.min.js}"></script>
-
-	<!-- 引入自定义文件 -->
-	<!--<script type="text/javascript">
-        var ctx = '',
-            ctxStatic = '/static';
-	</script>-->
-
-	<link rel="stylesheet" id="theme" href="" th:href="@{/css/app-blue.css}">
-	<script src="" th:src="@{/js/jeeplus.js}"></script>
-
-	<!--引入自定义css和js文件-->
-	<link rel="stylesheet" type="text/css" href="" th:href="@{/css/eqrms.css}">
-	<script src="" th:src="@{/js/common.js}"></script>
-
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="renderer" content="webkit">
-
-	<meta name="decorator" content="ani">
-	<script src="" th:src="@{/js/contabs.js}"></script>
-	<script src="" th:src="@{/js/fullscreen.js}"></script>
-	<link id="theme-tab" href="" th:href="@{/css/menuTab-blue.css}" rel="stylesheet">
-
-	<style type="text/css">
-		a {
-			color: #3CA2E0;
-		}
-	</style>
-
+	<meta charset="UTF-8">
+	<title>再芮互联网+大数据撮合平台</title>
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8"/>
+    <!--<meta http-equiv="Cache-Control" content="no-siteapp"/>-->
+    <link rel="shortcut icon" href="" th:href="@{/images/favicon.ico}"/>
+    <link rel="stylesheet" href="" th:href="@{/css/font.css}">
+	<link rel="stylesheet" href="" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" href="" th:href="@{/layui/css/xadmin.css}">
+    <script type="text/javascript" src="" th:src="@{'https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js'}"></script>
+    <script type="text/javascript" src="" th:src="@{'https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js'}"></script>
+    <script src="" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" src="" th:src="@{/js/xadmin.js}"></script>
+    <script type="text/javascript" src="" th:src="@{/js/cookie.js}"></script>
 </head>
-
-<body id="" class="" style="">
-
-<nav class="navbar topnav-navbar navbar-fixed-top" role="navigation">
-	<div class="navbar-header text-center">
-		<button type="button" class="navbar-toggle" id="showMenu">
-			<span class="sr-only">Toggle navigation</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		</button>
-
-		<a class="navbar-brand J_menuItem" href="" th:href="@{/http://www.gz-zairui.com/}" data-index="0">再芮数据 </a>
-	</div>
-	<div class="collapse navbar-collapse">
-		<ul class="nav navbar-nav navbar-left">
-			<li><div class="work-nav-title">再芮修复管理平台</div></li>
-		</ul>
-
-		<ul class="nav navbar-nav pull-right navbar-right">
-
-			<li>
-				<a href="#" onclick="toggleLogon()" id="toggleLogon">
-					<span id="callLogon">签到</span>
-				</a>
-			</li>
-			<li>
-				<a href="#" onclick="toggleFullScreen()">
-					<span>全屏</span>
-				</a>
-
-			</li>
-
-			<li class="dropdown admin-dropdown">
-				<!--modify jeeplus style-->
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="padding-top: 15px;padding-bottom: 15px">
-
-					<span class="hidden-sm">**</span>
-				</a>
-				<ul class="dropdown-menu animated fadeIn" role="menu">
-
-					<li>
-						<a class="J_menuItem" href="" th:href="@{/home.html}" data-index="1">个人资料</a>
-					</li>
-
-					<li>
-						<a href="#" onclick="contactUS('OK')">
-							<span>联系我们</span>
-						</a>
-					</li>
-					<li>
-						<a href="#">安全退出</a>
-					</li>
-
-				</ul>
-			</li>
-		</ul>
-
-		<ul class="nav navbar-nav pull-right navbar-right" style="margin-right: 0;">
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-envelope"></span><span class="badge badge-green">0</span></a>
-
-				<ul class="dropdown-menu animated fadeIn">
-					<li class="messages-top text-center">
-						你有 0 封未读邮件.
-					</li>
-
-					<li class=" text-center">
-						<a class="J_menuItem" href="" th:href="@{/https://mail.163.com/}" data-index="2">
-							<font color="gray"><i class="fa fa-envelope"></i> 查看所有邮件</font>
-						</a>
-					</li>
-				</ul>
-
-			</li>
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-					<span class="glyphicon glyphicon-bell"></span><span class="badge badge-red">0</span>
-				</a>
-				<ul class="dropdown-menu animated fadeIn">
-					<li class="messages-top text-center">
-						你有 0 条新通知.
-					</li>
-
-				</ul>
-			</li>
-		</ul>
-	</div>
-	<ul class="nav navbar-nav pull-right hidd">
-		<li class="dropdown admin-dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-				<img src="#" class="topnav-img" alt=""><span class="hidden-sm">**</span>
-			</a>
-			<ul class="dropdown-menu animated fadeIn" role="menu">
-
-				<li>
-					<a class="J_menuItem" href="#" data-index="3">个人资料</a>
-				</li>
-
-				<li>
-					<a href="#">安全退出</a>
-				</li>
-			</ul>
-		</li>
-	</ul>
-</nav>
-<aside id="sidebar">
-	<div class="sidenav-outer">
-		<div class="side-widgets">
-
-			<div class="widgets-content">
-				<!--modify jeeplus style-->
-				<div class="menu" style="top:0">
-					<div class="menu-body">
-						<ul class="nav nav-pills nav-stacked sidenav" id="1">
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/query(1).html}" data-index="4">失联修复查询（保险）</a>
-							</li>
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/orgDcpReport.html}" data-index="5">数据统计（保险）</a>
-							</li>
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/verify.html}" data-index="6">失联修复（银行）</a>
-							</li>
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/repairQueryForBank.html}" data-index="7">失联修复查询（银行）</a>
-							</li>
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/orgDcpReport.html}" data-index="8">数据统计（银行）</a>
-							</li>
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/contactRepairForBankAccurate.html}" data-index="9">失联修复（精确）</a>
-							</li>
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/repairQueryForBankAccurate.html}" data-index="10">失联修复查询（精确）</a>
-							</li>
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/phoneStateReport.html}" data-index="11">数据统计（精确）</a>
-							</li>
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/query.html}" data-index="12">三要素验证结果查询（旧）</a>
-							</li>
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/contactRepairForBank.html}" data-index="13">三要素验证（旧）</a>
-							</li>
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/contactRepairForBank.html}" data-index="14">查询手机在网状态（旧）</a>
-							</li>
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/query(1).html}" data-index="15">查询手机在网状态结果（旧）</a>
-							</li>
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/orgTrinityReport.html}" data-index="16">数据统计（三要素）（旧）</a>
-							</li>
-							<li>
-								<a class="J_menuItem" href="" th:href="@{/phoneStateReport.html}" data-index="17">数据统计（查询手机在网状态）（旧）</a>
-							</li>
-
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</aside>
-<section id="body-container" class="animation">
-
-	<!--选项卡  -->
-	<div class="main-container" id="main-container">
-		<div class="main-content">
-			<div class="main-content-inner">
-				<div id="breadcrumbs" class="breadcrumbs">
-					<div class="content-tabs">
-						<button id="hideMenu" class="roll-nav roll-left-0 J_tabLeft"><i class="fa fa-align-justify"></i>
-						</button>
-						<button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i>
-						</button>
-						<nav class="page-tabs J_menuTabs">
-							<div class="page-tabs-content" style="margin-left: -1444px;">
-								<a href="javascript:" class="J_menuTab" data-id="home.html">首页</a>
-								<a href="javascript:" class="J_menuTab" data-id="/stats/orgReport">数据统计（保险） <i class="fa fa-times-circle"></i></a>
-								<a href="javascript:" class="J_menuTab" data-id="/repair/contactRepairForBank">失联修复（银行） <i class="fa fa-times-circle"></i></a>
-								<a href="javascript:" class="J_menuTab" data-id="/repair/repairQueryForBank">失联修复查询（银行） <i class="fa fa-times-circle"></i></a>
-								<a href="javascript:" class="J_menuTab" data-id="/stats/orgDcpReport">数据统计（银行） <i class="fa fa-times-circle"></i></a>
-								<a href="javascript:" class="J_menuTab" data-id="/repair/contactRepairForBankAccurate">失联修复（精确） <i class="fa fa-times-circle"></i></a>
-								<a href="javascript:" class="J_menuTab" data-id="/stats/orgDcpAccurateReport">数据统计（精确） <i class="fa fa-times-circle"></i></a>
-								<a href="javascript:" class="J_menuTab" data-id="/repair/repairQueryForBankAccurate">失联修复查询（精确） <i class="fa fa-times-circle"></i></a>
-								<a href="javascript:" class="J_menuTab" data-id="/trinity/query">三要素验证结果查询（旧） <i class="fa fa-times-circle"></i></a>
-								<a href="javascript:" class="J_menuTab" data-id="/trinity/verify">三要素验证（旧） <i class="fa fa-times-circle"></i></a>
-								<a href="javascript:" class="J_menuTab" data-id="/phoneState/query">查询手机在网状态结果（旧） <i class="fa fa-times-circle"></i></a>
-								<a href="javascript:" class="J_menuTab" data-id="/phoneState/import">查询手机在网状态（旧） <i class="fa fa-times-circle"></i></a>
-								<a href="javascript:" class="J_menuTab" data-id="/stats/orgTrinityReport">数据统计（三要素）（旧） <i class="fa fa-times-circle"></i></a>
-								<a href="javascript:" class="active J_menuTab" data-id="/stats/phoneStateReport">数据统计（查询手机在网状态）（旧） <i class="fa fa-times-circle"></i></a>
-							</div>
-						</nav>
-						<button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
-						</button>
-						<a id="logout" href="https://www.baidu.com/baidu" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
-					</div>
-				</div>
-
-				<div class="J_mainContent" id="content-main" style="height:calc(100% - 40px)">
-					<iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="home.html" frameborder="0" data-id="/home" style="display: none;">
-
-					</iframe>
-					<iframe class="J_iframe" name="iframe5" width="100%" height="100%" src="orgReport.html" frameborder="0" data-id="/stats/orgReport" style="display: none;">
-
-					</iframe>
-					<iframe class="J_iframe" name="iframe6" width="100%" height="100%" src="contactRepairForBank.html" frameborder="0" data-id="/repair/contactRepairForBank" style="display: none;">
-
-					</iframe>
-					<iframe class="J_iframe" name="iframe7" width="100%" height="100%" src="repairQueryForBank.html" frameborder="0" data-id="/repair/repairQueryForBank" style="display: none;">
-
-					</iframe>
-					<iframe class="J_iframe" name="iframe8" width="100%" height="100%" src="orgDcpReport.html" frameborder="0" data-id="/stats/orgDcpReport" style="display: none;">
-
-					</iframe>
-					<iframe class="J_iframe" name="iframe9" width="100%" height="100%" src="contactRepairForBankAccurate.html" frameborder="0" data-id="/repair/contactRepairForBankAccurate" style="display: none;">
-
-					</iframe><iframe class="J_iframe" name="iframe11" width="100%" height="100%" src="orgDcpAccurateReport.html" frameborder="0" data-id="/stats/orgDcpAccurateReport" style="display: none;">
-
-				</iframe>
-					<iframe class="J_iframe" name="iframe10" width="100%" height="100%" src="repairQueryForBankAccurate.html" frameborder="0" data-id="/repair/repairQueryForBankAccurate" style="display: none;">
-
-					</iframe>
-					<iframe class="J_iframe" name="iframe12" width="100%" height="100%" src="query.html" frameborder="0" data-id="/trinity/query" style="display: none;">
-
-					</iframe>
-					<iframe class="J_iframe" name="iframe13" width="100%" height="100%" src="verify.html" frameborder="0" data-id="/trinity/verify" style="display: none;">
-
-					</iframe>
-					<iframe class="J_iframe" name="iframe15" width="100%" height="100%" src="query(1).html" frameborder="0" data-id="/phoneState/query" style="display: none;">
-
-					</iframe><iframe class="J_iframe" name="iframe14" width="100%" height="100%" src="import.html" frameborder="0" data-id="/phoneState/import" style="display: none;">
-
-				</iframe>
-					<iframe class="J_iframe" name="iframe16" width="100%" height="100%" src="orgTrinityReport.html" frameborder="0" data-id="/stats/orgTrinityReport" style="display: none;">
-
-					</iframe>
-					<iframe class="J_iframe" name="iframe17" width="100%" height="100%" src="phoneStateReport.html" frameborder="0" data-id="/stats/phoneStateReport">
-
-					</iframe>
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-	<div class="footer">
-		<div class="pull-left">Copyright © 2019 广州再芮股份有限公司</div>
-	</div>
-
-</section>
-
-<script>
-    var logon = false;
-    var uuid =
-        $(function() {
-
-            window.onunload = function(event) {
-                $.ajax({
-                    url: "/call/stopHeartBeat",
-                    dataType: "json",
-                    type: "post",
-                    success: function(data) {
-                        if(data.success === false) {
-                            alert(data.msg);
-                        }
-                    },
-                    error: function(err) {}
-                });
-            };
-
-            $("#logout").click(function() {
-                $.ajax({
-                    url: "/call/stopHeartBeat",
-                    dataType: "json",
-                    type: "post",
-                    success: function(data) {},
-                    error: function(err) {}
-                });
-                window.location.href = "/logout";
-            });
-            $('#calendar2').fullCalendar({
-                eventClick: function(calEvent, jsEvent, view) {
-                    alert('Event: ' + calEvent.title);
-                    alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                    alert('View: ' + view.name);
-                }
-            });
-            $('#rtlswitch').click(function() {
-                $('body').toggleClass('rtl');
-                var hasClass = $('body').hasClass('rtl');
-            });
-            $('.theme-picker').click(function() {
-                changeTheme($(this).attr('data-theme'));
-            });
-            $('#showMenu').click(function() {
-                $('body').toggleClass('push-right');
-            });
-            $('#hideMenu').click(function() {
-                $('body').removeClass('push-right');
-                $('body').toggleClass('push-left');
-            });
-            $("#switchTab").change(function() {
-                if($("#switchTab").is(':checked')) {
-                    $("#breadcrumbs").attr("class", "breadcrumbs");
-                    $("#content-main").css("height", "calc(100% - 40px)");
-                    $.get('/tab/true?url=' + window.top.location.href, function(result) {});
-                } else {
-                    $("#breadcrumbs").attr("class", "un-breadcrumbs");
-                    $("#content-main").css("height", "calc(100%)");
-                    $.get('/tab/false?url=' + window.top.location.href, function(result) {});
-                }
-            })
-//
-//								$('ul.dropdown-menu li a').click(function() {
-//									$('li.dropdown.open').removeClass('open');
-//								});
-//								tipsModifyPassword();
-        });
-
-    function tipsModifyPassword() {
-        var isModifyPwd = '1';
-        //isModifyPwd = 1;
-        //console.log("isModifyPwd", Number(isModifyPwd));
-        if(Number(isModifyPwd)) {
-            modifyPassword('');
-        }
-    }
-
-    function changeTheme(theme) {
-        var link = $('<link>')
-            .appendTo('head')
-            .attr({
-                type: 'text/css',
-                rel: 'stylesheet'
-            })
-            .attr('href', '/static/common/css/app-' + theme + '.css');
-
-        var tabLink = $('<link>')
-            .appendTo('head')
-            .attr({
-                type: 'text/css',
-                rel: 'stylesheet'
-            })
-            .attr('href', '/static/plugin/js-menu/menuTab-' + theme + '.css');
-
-        var childrenLink = $('<link>').appendTo($(".J_iframe").contents().find("head"))
-            .attr({
-                type: 'text/css',
-                rel: 'stylesheet'
-            })
-            .attr('href', '/static/common/css/app-' + theme + '.css');
-
-        $.get('/theme/' + theme + '?url=' + window.top.location.href, function(result) {
-
-            $('#theme').remove();
-            $('#theme-tab').remove();
-            $(".J_iframe").contents().find("#theme").remove();
-            link.attr("id", "theme");
-            childrenLink.attr("id", "theme");
-            tabLink.attr("id", "theme-tab")
-        });
-
-    }
-
-    function toggleLogon() {
-        if(logon) {
-            $.ajax({
-                url: "/call/stopHeartBeat",
-                dataType: "json",
-                type: "post",
-                success: function(data) {
-                    if(data.success === false) {
-                        alert(data.msg);
-                    } else {
-                        $("#toggleLogon").html("<span id='callLogon'>签到</span>");
-                        logon = false;
-                    }
-                },
-                error: function(err) {}
-            });
-        } else {
-            $.ajax({
-                url: "/call/startHeartBeat",
-                dataType: "json",
-                type: "post",
-                success: function(data) {
-                    if(data.success === false) {
-                        alert(data.msg);
-                    } else {
-                        $("#toggleLogon").html("<span id='callLogon'>退出</span>");
-                        logon = true;
-                    }
-                },
-                error: function(err) {
-
-                }
-            });
-
-        }
-    }
-</script>
-
-<ul class="context-menu-list context-menu-root" style="display: none;">
-	<li class="context-menu-item context-menu-icon context-menu-icon--fa fa fa-times"><span>关闭标签</span></li>
-	<li class="context-menu-item"><span>关闭其他标签</span></li>
-	<li class="context-menu-item context-menu-icon context-menu-icon--fa fa fa-refresh"><span>刷新</span></li>
-	<li class="context-menu-item context-menu-separator context-menu-not-selectable"></li>
-	<li class="context-menu-item"><span>关闭左侧标签</span></li>
-	<li class="context-menu-item"><span>关闭右侧标签</span></li>
-	<li class="context-menu-item context-menu-icon context-menu-icon--fa fa fa-times-circle "><span>关闭全部标签</span></li>
-</ul>
-<div class="layui-layer-move"></div>
+<body>
+    <!-- 顶部开始 -->
+    <div class="container">
+        <div class="logo"><a href="" th:href="@{/index.html}">再芮互联网</a></div>
+        <div class="left_open">
+            <i title="展开左侧栏" class="iconfont">&#xe699;</i>
+        </div>
+        <ul class="layui-nav left fast-add" lay-filter="">
+          <li class="layui-nav-item">
+            <a href="javascript:">+新增</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+              <dd><a onclick="x_admin_show('资讯','https://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
+              <dd><a onclick="x_admin_show('图片','https://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>
+               <dd><a onclick="x_admin_show('用户 最大化','https://www.baidu.com','','',true)"><i class="iconfont">&#xe6b8;</i>用户最大化</a></dd>
+               <dd><a onclick="x_admin_add_to_tab('在tab打开','https://www.baidu.com',true)"><i class="iconfont">&#xe6b8;</i>在tab打开</a></dd>
+            </dl>
+          </li>
+        </ul>
+        <ul class="layui-nav right" lay-filter="">
+          <li class="layui-nav-item">
+            <a href="javascript:">admin</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+              <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
+              <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
+              <dd><a href="" th:href="@{/login.html}">退出</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item to-index"><a href="/">前台首页</a></li>
+        </ul>
+        
+    </div>
+    <!-- 顶部结束 -->
+    <!-- 中部开始 -->
+     <!-- 左侧菜单开始 -->
+    <div class="left-nav">
+      <div id="side-nav">
+        <ul id="nav">
+            <li>
+                <a href="javascript:">
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite>保险</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li date-refresh="1">
+                        <a _href="/insurances-restore">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>失联修复（保险）</cite>
+                        </a>
+                    </li>
+                    <li date-refresh="1">
+                        <a _href="/insurances-search">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>失联修复查询（保险）</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="/insurances-census">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>数据统计（保险）</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>银行管理模块</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="" th:href="@{order-list}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>失联修复查询（银行）</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a href="" th:href="@{order-list}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>数据统计（银行）</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>数据修复</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="" th:href="@{cate}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>失联修复（精确）</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a href="" th:href="@{cate}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>失联修复查询（精确）</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a href="" th:href="@{cate}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>数据统计（精确）</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>三要素验证</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="" th:href="@{city.html}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>三要素验证结果查询（旧）</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a href="" th:href="@{city.html}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>三要素验证（旧）</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a href="" th:href="@{city.html}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>查询手机在网状态（旧）</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a href="" th:href="@{city.html}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>查询手机在网状态结果（旧）</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:">
+                    <i class="iconfont">&#xe726;</i>
+                    <cite>数据统计</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="" th:href="@{admin-list.html}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>数据统计（三要素）（旧）</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a href="" th:href="@{admin-role.html}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>数据统计（查询手机在网状态）（旧）</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+    <!-- <div class="x-slide_left"></div> -->
+    <!-- 左侧菜单结束 -->
+    <!-- 右侧主体开始 -->
+    <div class="page-content">
+        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+          <ul class="layui-tab-title">
+            <li class="home"><i class="layui-icon">&#xe68e;</i>我的桌面</li>
+          </ul>
+          <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
+                <dl>
+                    <dd data-type="this">关闭当前</dd>
+                    <dd data-type="other">关闭其它</dd>
+                    <dd data-type="all">关闭全部</dd>
+                </dl>
+          </div>
+          <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <iframe src="" th:src="@{/welcome.html}" frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+            </div>
+          </div>
+          <div id="tab_show"></div>
+        </div>
+    </div>
+    <div class="page-content-bg"></div>
+    <!-- 右侧主体结束 -->
+    <!-- 中部结束 -->
+    <!-- 底部开始 -->
+    <div class="footer">
+        <div class="copyright">再芮互联网+大数据挫回平台</div>
+    </div>
 </body>
-
 </html>
