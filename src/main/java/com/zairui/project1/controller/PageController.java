@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class PageController{
     }
 
     @RequestMapping("/{jumpPage}")
-    public ModelAndView page(@PathVariable String jumpPage, ModelAndView mav){
+    public ModelAndView page(@PathVariable String jumpPage, ModelAndView mav, HttpSession httpSession){
         //***进入首页***//
         switch (jumpPage){
             case "index":
@@ -44,6 +45,8 @@ public class PageController{
                 }catch (Exception e){
                     e.printStackTrace();
                 }*/
+                /*jumpPage = "redirect:/insurances/getInsurancesTable/enter?page=1&limit=10";*/
+                httpSession.setAttribute("enter",true);
                 break;
             case "insurances-restore":
                 break;

@@ -13,6 +13,7 @@
     <script type="text/javascript" src="" th:src="@{'https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js'}"></script>
     <script type="text/javascript" src="" th:src="@{/js/xadmin.js}"></script>
     <script type="text/javascript" src="" th:src="@{/js/cookie.js}"></script>
+    <script type="text/javascript" src="" th:src="@{/js/regulation.js}"></script>
 </head>
 
 <body>
@@ -24,20 +25,18 @@
           <cite>导航元素</cite></a>
       </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
-       href="javascript:location.replace(location.href);" title="刷新">
-        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+       href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i>
+    </a>
 </div>
 <div class="x-body">
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so" action="" method="post">
-            <input class="layui-input" autocomplete="off" placeholder="开始日期" name="start" id="start">
-            <input class="layui-input" autocomplete="off" placeholder="截止日期" name="end" id="end">
-            <input type="text" name="batch" placeholder="请输入批次号" autocomplete="off" class="layui-input" id="batch">
-            <input type="text" name="idCard" placeholder="请输入身份证" autocomplete="off" class="layui-input" id="idCard">
-            <input type="text" name="name" placeholder="请输入姓名" autocomplete="off" class="layui-input" id="name">
-            <input type="text" name="phone" placeholder="请输入手机号" autocomplete="off" class="layui-input" id="phone">
-            <input type="submit" onclick="return insuranceForm()" class="layui-btn"/>
-        </form>
+        <input class="layui-input" autocomplete="off" placeholder="开始日期" name="start" id="start" style="width: 150px;float: left;margin: 0 10px 0 0;">
+        <input class="layui-input" autocomplete="off" placeholder="截止日期" name="end" id="end"  style="width: 150px;float: left;margin: 0 10px 0 0;">
+        <input type="text" name="batch" placeholder="批次号" autocomplete="off" class="layui-input" id="batch"  style="width: 150px;float: left;margin: 0 10px 0 0;">
+        <input type="text" name="idCard" placeholder="身份证" maxlength="18" autocomplete="off" class="layui-input" id="idCard"  style="width: 150px;float: left;margin: 0 10px 0 0;">
+        <input type="text" name="name" placeholder="姓名" autocomplete="off" class="layui-input" id="name"  style="width: 150px;float: left;margin: 0 10px 0 0;">
+        <input type="text" name="phone" placeholder="手机号" maxlength="11" autocomplete="off" class="layui-input" id="phone"  style="width: 150px;float: left;margin: 0 10px 0 0;">
+        <button class="layui-btn" data-type="reload">确认</button>
     </div>
     <table id="insurancesTable" lay-filter="test"></table>
 </div>
@@ -49,13 +48,13 @@
     layui.use('laydate', function () {
         var laydate = layui.laydate;
 
-//执行一个laydate实例
+        //执行一个laydate实例
         laydate.render({
             elem: '#start' //指定元素
             ,type: 'datetime'
         });
 
-//执行一个laydate实例
+        //执行一个laydate实例
         laydate.render({
             elem: '#end' //指定元素
             ,type: 'datetime'
@@ -73,7 +72,7 @@
             ,url: '/insurances/getInsurancesTable' //数据接口*/
             ,cols: [
                 [ //表头
-                {field: 'index', title: '序号', width:80, sort: true, fixed: 'left'}
+                {field: 'index', title: '序号', width:80, /*sort: true, */fixed: 'left'}
                 ,{field: 'batch', title: '批次号', width:160}
                 ,{field: 'id', title: '身份证', width:160}
                 ,{field: 'name', title: '姓名', width:80}
@@ -84,6 +83,7 @@
                 ,{field: 'operate', title: '操作', width: 100}
             ]
             ]
+            ,id : 'tableReload'
             ,page: true //开启分页
             ,limits: [10,20,30,50,100]
             ,limit: 10 //每页默认显示的数量
@@ -96,6 +96,31 @@
                 }
                 console.log(obj)
             }
+        });
+
+        //搜索事件
+        var $ = layui.$, active = {
+            reload : function () {
+                //执行重载
+                table.reload('tableReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where:{
+                        start : $("#start").val(),
+                        end : $("#end").val(),
+                        id : $("#idCard").val(),
+                        batch : $("#batch").val().trim(),
+                        name : $("#name").val().trim(),
+                        phone : $("#phone").val().trim()
+                    }
+                }, 'data');
+            }
+        };
+        //“确认”按钮事件
+        $('.layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
         });
     });
 </script>

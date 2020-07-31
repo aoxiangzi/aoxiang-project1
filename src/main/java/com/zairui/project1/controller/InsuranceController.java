@@ -64,20 +64,25 @@ public class InsuranceController{
 
     @ResponseBody
     @RequestMapping("/getInsurancesTable")
-    public String getInsurancesTable(Insurances insurance,int page,int limit){
-        System.out.println(page+":"+limit);
-        List<Insurances> insurancesList = insurancesImpl.findInsurancesList(insurance);
-        List<Insurances> newnsurancesList = new ArrayList<>();
-        if(insurancesList.size() > 10){
-            newnsurancesList = insurancesList.subList((page - 1) * limit,page * limit);
+    public String getInsurancesTable(String start, String end, Insurances insurance, int page, int limit,HttpSession httpSession){
+        if(start == null && end == null && insurance.getBatch() == null && insurance.getId() == null && insurance.getName() == null && insurance.getPhone() == null){
+            return "{\"code\": 0,\"count\": 0,\"data\": []}";
+        }else{
+            List<Insurances> insurancesList = insurancesImpl.findInsurancesList(insurance);
+            List<Insurances> newnsurancesList = new ArrayList<>();
+            if(insurancesList.size() > 10){
+                newnsurancesList = insurancesList.subList((page - 1) * limit,page * limit);
+            }else{
+                newnsurancesList = insurancesList;
+            }
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("{\"code\": 0,\"count\": ").append(insurancesList.size()).append(",\"data\": [");
+            for(int i=0;i<newnsurancesList.size();i++){
+                stringBuilder.append("{\"index\":\"").append(i + 1).append("\",").append("\"batch\":\"").append(newnsurancesList.get(i).getBatch()).append("\",").append("\"id\":\"").append(newnsurancesList.get(i).getId()).append("\",").append("\"name\":\"").append(newnsurancesList.get(i).getName()).append("\",").append("\"phone\":\"").append(newnsurancesList.get(i).getPhone()).append("\",").append("\"status\":\"").append(newnsurancesList.get(i).getStatus()).append("\",").append("\"hit\":\"").append(newnsurancesList.get(i).getHit()).append("\",").append("\"time\":\"").append(newnsurancesList.get(i).getTime()).append("\",").append("\"operate\":\"").append(newnsurancesList.get(i).getOperate()).append("\"},");
+            }
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1).append("]}");
+            System.out.println("insurancesList.size():"+insurancesList.size()+"\nstart:"+start+",end:"+end+",Insurance:"+insurance.toString() + "page:"+page+":limit:"+limit);
+            return stringBuilder.toString();
         }
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("{\"code\": 0,\"count\": ").append(insurancesList.size()).append(",\"data\": [");
-        for(int i=0;i<newnsurancesList.size();i++){
-            stringBuilder.append("{\"index\":\"").append(i + 1).append("\",").append("\"batch\":\"").append(newnsurancesList.get(i).getBatch()).append("\",").append("\"id\":\"").append(newnsurancesList.get(i).getId()).append("\",").append("\"name\":\"").append(newnsurancesList.get(i).getName()).append("\",").append("\"phone\":\"").append(newnsurancesList.get(i).getPhone()).append("\",").append("\"status\":\"").append(newnsurancesList.get(i).getStatus()).append("\",").append("\"hit\":\"").append(newnsurancesList.get(i).getHit()).append("\",").append("\"time\":\"").append(newnsurancesList.get(i).getTime()).append("\",").append("\"operate\":\"").append(newnsurancesList.get(i).getOperate()).append("\"},");
-        }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1).append("]}");
-        System.out.println(page+":"+limit);
-        return stringBuilder.toString();
     }
 }
